@@ -313,6 +313,99 @@ html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
     }
 }
 
+/* --- HERO CON CARRUSEL INCLINADO --- */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden; /* Muy importante para que no se salga de la pantalla al rotar */
+    background-color: #0a0a0a;
+}
+
+/* El contenedor que giramos */
+.hero-carousel-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150vw; /* Más ancho que la pantalla para cubrir las esquinas al girar */
+    transform: translate(-50%, -50%) rotate(-8deg); /* AQUÍ ESTÁ EL GIRO DE -8 GRADOS */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Separación entre las dos filas */
+    z-index: 1;
+}
+
+/* --- LÓGICA DEL CARRUSEL INFINITO --- */
+
+/* 1. La Pista (evita que las fotos salten de línea) */
+.carousel-track {
+    display: flex;
+    width: max-content;
+    flex-wrap: nowrap; 
+}
+
+/* 2. El Grupo (controla la separación exacta) */
+.carousel-group {
+    display: flex;
+    gap: 20px;
+    padding-right: 20px; 
+}
+
+/* 3. Las Fotos (tamaño fijo, sin aplastarse) */
+.carousel-group img {
+    height: 250px;
+    width: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.6; 
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    flex-shrink: 0; /* CRÍTICO: Evita el salto brusco */
+    -webkit-user-drag: none;
+}
+
+/* 4. Asignación de Movimiento */
+.track-left {
+    animation: scrollLeft 40s linear infinite;
+}
+
+.track-right {
+    animation: scrollRight 40s linear infinite;
+    margin-left: -200px; /* Desfase inicial para la pista inferior */
+}
+
+/* 5. Los Motores de la Animación (Keyframes) */
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
+
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* Capa oscura superior */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    z-index: 2;
+}
+
+/* Asegurarnos de que el texto quede por encima */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+/* (Mantén aquí el CSS de .hero-title y .hero-subtitle que ya tenías) */
+
 .hero-title {
     font-size: 4rem; /* Ajusta según el gusto de tu amigo */
     opacity: 0; /* Empieza invisible */
@@ -326,62 +419,77 @@ html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
     padding-left: 5%;
 }
 
-/* --- AJUSTES PARA MÓVILES Y TABLETS --- */
+
+/* --- SOLUCIÓN VISUAL DEFINITIVA PARA MÓVIL --- */
 @media (max-width: 768px) {
     
-    /* 1. Ajuste de la Navbar */
+    * {
+        box-sizing: border-box !important;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* 1. La Cápsula (Navbar) */
     .navbar {
-        width: 95%;
-        padding: 10px 20px;
-        top: 10px;
+        width: 90% !important; /* Deja un margen bonito a los lados */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        padding: 10px 20px !important; /* Que respire por dentro */
+        top: 15px !important;
+        border-radius: 50px !important;
     }
 
+    .nav-container {
+        display: flex !important;
+        justify-content: space-between !important; /* Empuja el logo a la izq y el botón a la der */
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    /* 2. El Logo (Pepe Foto) */
+    .logo {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .logo-img {
+        height: 35px !important; /* Un tamaño decente para que se lea "PEPE FOTO" */
+        width: auto !important;
+        margin: 0 !important;
+    }
+
+    /* 3. El Truco Magico: Ocultar textos intermedios */
     .nav-links {
-        gap: 15px; /* Menos espacio entre enlaces */
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    .nav-links a {
-        font-size: 0.7rem; /* Texto más pequeño */
-        letter-spacing: 1px;
+    /* Ocultamos todo excepto el último elemento (el botón de contacto) */
+    .nav-links li:not(:last-child) {
+        display: none !important;
     }
 
+    /* 4. El Botón de Contacto */
     .nav-btn {
-        padding: 6px 12px;
-        font-size: 0.7rem !important;
+        padding: 8px 18px !important;
+        font-size: 0.75rem !important;
+        border-radius: 30px !important;
+        white-space: nowrap !important; /* Prohíbe que el botón se parta en dos líneas */
+        margin: 0 !important;
     }
 
-    /* 2. Ajuste del Título Principal */
+    /* 5. El Título "Capturando..." */
     .hero {
-        padding-top: 120px; /* Menos margen arriba en móvil */
+        padding-top: 120px !important; 
     }
 
     .hero-title {
-        font-size: 2.2rem; /* Título más pequeño para que no se corte */
-        padding: 0 20px;
-        line-height: 1.2;
-    }
-
-    /* 3. Ajuste de la Galería/Categorías */
-    .category-grid {
-        grid-template-columns: 1fr; /* Una foto debajo de otra */
-        height: auto; /* Que crezca según las fotos */
-    }
-
-    .cat-card {
-        height: 350px; /* Altura fija para que no sean infinitas */
-    }
-
-    .overlay h3 {
-        font-size: 1.8rem;
-    }
-
-    /* 4. Ocultar el cursor personalizado en móviles */
-    /* En pantallas táctiles no hay ratón, así que el círculo estorba */
-    .cursor-wrapper {
-        display: none;
-    }
-
-    html, body, a, button {
-        cursor: auto !important; /* Recuperamos el cursor táctil normal */
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        padding: 0 15px !important;
     }
 }
