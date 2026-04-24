@@ -313,6 +313,58 @@ html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
     }
 }
 
+/* --- ESTILOS DE LA SECCIÓN DE PILARES --- */
+.highlights-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 100px 20px;
+    background-color: #111; /* Mantiene el fondo oscuro elegante */
+    text-align: center;
+    gap: 40px;
+}
+
+.highlight-item {
+    flex: 1;
+    min-width: 250px;
+    /* Pequeña animación al pasar el ratón */
+    transition: transform 0.3s ease;
+}
+
+.highlight-item:hover {
+    transform: translateY(-5px);
+}
+
+.highlight-title {
+    font-size: 2.2rem;
+    color: #e67e22; /* El tono naranja de tu diseño original */
+    margin-bottom: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.highlight-desc {
+    font-size: 1rem;
+    color: #cccccc;
+    line-height: 1.6;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+/* --- AJUSTE PARA MÓVILES --- */
+@media (max-width: 768px) {
+    .highlights-section {
+        flex-direction: column;
+        padding: 60px 20px;
+        gap: 50px;
+    }
+    
+    .highlight-title {
+        font-size: 1.8rem;
+    }
+}
+
 /* --- HERO CON CARRUSEL INCLINADO --- */
 .hero {
     position: relative;
