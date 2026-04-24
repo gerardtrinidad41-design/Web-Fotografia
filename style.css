@@ -363,6 +363,16 @@ html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
     .highlight-title {
         font-size: 1.8rem;
     }
+
+    /* --- APAGAR EL CURSOR PERSONALIZADO EN MÓVIL --- */
+    .cursor-wrapper {
+        display: none !important;
+    }
+
+    /* Devolver el comportamiento táctil/cursor normal a todos los elementos */
+    html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
+        cursor: auto !important;
+    }
 }
 
 /* --- HERO CON CARRUSEL INCLINADO --- */
