@@ -364,14 +364,32 @@ html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
         font-size: 1.8rem;
     }
 
-    /* --- APAGAR EL CURSOR PERSONALIZADO EN MÓVIL --- */
-    .cursor-wrapper {
+    /* Ocultar el cursor personalizado de forma agresiva en móviles */
+    .cursor, 
+    .cursor-wrapper, 
+    .cursor-outer, 
+    .cursor-dot {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    /* Forzar centrado perfecto en todas las secciones de texto */
+    section {
+        width: 100% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
     }
 
-    /* Devolver el comportamiento táctil/cursor normal a todos los elementos */
-    html, body, a, button, img, .cat-card, .nav-btn, [role="button"] {
-        cursor: auto !important;
+    section h2, 
+    section h3, 
+    section p {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
     }
 }
 
